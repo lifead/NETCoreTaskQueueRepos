@@ -43,7 +43,7 @@ namespace TaskQueueCore.ServiceHosting.Controllers
             }
             catch (System.Exception ex)
             {
-
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
                 throw;
             }
             
