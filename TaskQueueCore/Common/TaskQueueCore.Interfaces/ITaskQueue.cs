@@ -4,7 +4,7 @@ using TaskQueueCore.Domain.DTO.TaskQueue;
 
 namespace TaskQueueCore.Interfaces
 {
-    public interface TaskQueueInterface
+    public interface ITaskQueue
     {
         /// <summary>
         /// Получить все доступные задачи для запуска в HangFire
