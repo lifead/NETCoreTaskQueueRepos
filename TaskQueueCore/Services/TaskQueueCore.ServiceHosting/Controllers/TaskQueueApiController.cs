@@ -1,75 +1,70 @@
 ﻿using Hangfire;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TaskQueueCore.Domain;
 using TaskQueueCore.Domain.DTO.TaskQueue;
+using TaskQueueCore.Interfaces;
 using TaskQueueCore.Services.TestTask;
 
 namespace TaskQueueCore.ServiceHosting.Controllers
 {
     [Route(WebAPI.TaskQueue)]
     [ApiController]
-    public class TaskQueueApiController : ControllerBase
+    public class TaskQueueApiController : ControllerBase, ITaskQueue
     {
-        private readonly TestTaskWriteToFile testTaskWriteToFile;
+        private readonly ITaskQueue _TaskQueue;
 
-        public TaskQueueApiController([FromServices] TestTaskWriteToFile TestTaskWriteToFile)
+        public TaskQueueApiController(ITaskQueue TaskQueue)
         {
-            testTaskWriteToFile = TestTaskWriteToFile;
+            _TaskQueue = TaskQueue;
         }
 
-        [HttpGet]
-        public IEnumerable<HfJobDTO> GetAllTask()
+
+        public string AddJobToEnqueue(int CodeTask, DateTime AimDate, IEnumerable<int> objId)
         {
-            try
-            {
-                var succeededJobs = JobStorage
-                .Current
-                .GetMonitoringApi()?
-                .SucceededJobs(0, int.MaxValue)?
-                .Select(x => new HfJobDTO
-                {
-                    JobId = x.Key,
-                    Arguments = x.Value?.Job?.Args.ToArray(),
-                    Method = x.Value?.Job?.Method.ToString(),
-                    Result = x.Value?.Result,
-                    RunJob = x.Value?.SucceededAt
-                }).AsEnumerable();
-
-                if (succeededJobs.Count() > 0)
-                    return succeededJobs;
-            }
-            catch (System.Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-                throw;
-            }
-
-            return new HfJobDTO[0].AsEnumerable();
+            return _TaskQueue.AddJobToEnqueue(CodeTask, AimDate, objId);
         }
 
-        [HttpGet("{id}")]
-        public string AddJob(int? id)
+        public string AddOrUpdateJob(string CronExpression, int CodeTask, string JobId = "", string queue = "default")
         {
-            var jobId = BackgroundJob.Enqueue(
-                         () => testTaskWriteToFile.StartTask(id ?? 0));
-
-            return jobId;
+            return _TaskQueue.AddOrUpdateJob(CronExpression, CodeTask, JobId, queue);
         }
 
-        [HttpGet("{id}/{name}")]
-        public string AddJob2(int? id, string name)
+        public Dictionary<int, string> GetAllCodeTasks()
         {
-            var jobId = BackgroundJob.Enqueue(
-                         () => testTaskWriteToFile.StartTask(id ?? 0));
-
-            RecurringJob.AddOrUpdate(
-                    () => System.Diagnostics.Debug.WriteLine("Recurring!"), //Console.WriteLine("Recurring!"),
-                    Cron.Daily);
-
-            return jobId;
+            return _TaskQueue.GetAllCodeTasks();
         }
 
+        public IEnumerable<HfJobDTO> GetAllJob()
+        {
+            return _TaskQueue.GetAllJob();
+        }
+
+        public HfJobDTO GetJobByJobId(int Id)
+        {
+            return _TaskQueue.GetJobByJobId(Id);
+        }
+
+        public IEnumerable<HfJobDTO> GetJobsByCodeTasks(HfJobFilterDTO hfJobFilterDTO)
+        {
+            return _TaskQueue.GetJobsByCodeTasks(hfJobFilterDTO);
+        }
+
+        public IEnumerable<HfJobDTO> GetJobsByDates(HfJobFilterDTO hfJobFilterDTO)
+        {
+            return _TaskQueue.GetJobsByDates(hfJobFilterDTO);
+        }
+
+        public IEnumerable<HfJobDTO> GetJobsByPeriodJobIds(HfJobFilterDTO hfJobFilterDTO)
+        {
+            return _TaskQueue.GetJobsByPeriodJobIds(hfJobFilterDTO);
+        }
+
+        public bool RemoveJob(string JobId)
+        {
+            return _TaskQueue.RemoveJob(JobId);
+        }
     }
 }
