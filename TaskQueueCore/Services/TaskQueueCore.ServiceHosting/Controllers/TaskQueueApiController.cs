@@ -1,5 +1,4 @@
 ﻿using Hangfire;
-using Hangfire.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +45,7 @@ namespace TaskQueueCore.ServiceHosting.Controllers
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
                 throw;
             }
-            
+
             return new HfJobDTO[0].AsEnumerable();
         }
 
@@ -66,7 +65,7 @@ namespace TaskQueueCore.ServiceHosting.Controllers
                          () => testTaskWriteToFile.StartTask(id ?? 0));
 
             RecurringJob.AddOrUpdate(
-                    () =>  System.Diagnostics.Debug.WriteLine("Recurring!"), //Console.WriteLine("Recurring!"),
+                    () => System.Diagnostics.Debug.WriteLine("Recurring!"), //Console.WriteLine("Recurring!"),
                     Cron.Daily);
 
             return jobId;
