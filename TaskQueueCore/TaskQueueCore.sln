@@ -14,11 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Service", ".Service", "{13
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreTaskQueue.Domain", "Common\NetCoreTaskQueue.Domain\NetCoreTaskQueue.Domain.csproj", "{BDE17845-D94B-4423-BCEA-DD898792351D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskQueueCore", "UI\TaskQueueCore\TaskQueueCore.csproj", "{2E8BADBC-14DA-477A-B65F-93EF10775B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskQueueCore", "UI\TaskQueueCore\TaskQueueCore.csproj", "{2E8BADBC-14DA-477A-B65F-93EF10775B1A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskQueueCore.Domain", "Common\TaskQueueCore.Domain\TaskQueueCore.Domain.csproj", "{B5E6ADF4-CC41-4B34-B44F-31F05B946B33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskQueueCore.Domain", "Common\TaskQueueCore.Domain\TaskQueueCore.Domain.csproj", "{B5E6ADF4-CC41-4B34-B44F-31F05B946B33}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskQueueCore.ServiceHosting", "Services\TaskQueueCore.ServiceHosting\TaskQueueCore.ServiceHosting.csproj", "{BA82376E-FA59-421A-9D0C-50232FCA25EF}"
 EndProject
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BDE17845-D94B-4423-BCEA-DD898792351D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDE17845-D94B-4423-BCEA-DD898792351D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDE17845-D94B-4423-BCEA-DD898792351D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDE17845-D94B-4423-BCEA-DD898792351D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E8BADBC-14DA-477A-B65F-93EF10775B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2E8BADBC-14DA-477A-B65F-93EF10775B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E8BADBC-14DA-477A-B65F-93EF10775B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,7 +43,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BDE17845-D94B-4423-BCEA-DD898792351D} = {CE62EC15-5073-4EDC-A1A3-46D8E65BE5E2}
 		{2E8BADBC-14DA-477A-B65F-93EF10775B1A} = {7C49BBB0-ACA4-4D43-80AA-D4DF386BC071}
 		{B5E6ADF4-CC41-4B34-B44F-31F05B946B33} = {CE62EC15-5073-4EDC-A1A3-46D8E65BE5E2}
 		{BA82376E-FA59-421A-9D0C-50232FCA25EF} = {425AFF36-E9D6-4C43-874E-6F34736218B4}

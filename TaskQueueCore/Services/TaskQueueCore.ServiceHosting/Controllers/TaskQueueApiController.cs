@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TaskQueueCore.Domain;
 
 namespace TaskQueueCore.ServiceHosting.Controllers
 {
@@ -11,6 +12,5 @@ namespace TaskQueueCore.ServiceHosting.Controllers
     [ApiController]
     public class TaskQueueApiController : ControllerBase
     {
-        private const object WebAPI;
     }
 }
