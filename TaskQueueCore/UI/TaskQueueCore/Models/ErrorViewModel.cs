@@ -1,6 +1,6 @@
 using System;
 
-namespace NETCoreTaskQueue.Models
+namespace TaskQueueCore.Models
 {
     public class ErrorViewModel
     {
