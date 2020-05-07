@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using TaskQueueCore.Interfaces;
-using TaskQueueCore.Services.TaskQueue;
+using TaskQueueCore.ServiceHosting.TaskQueue;
 using TaskQueueCore.Services.TestTask;
 
 namespace TaskQueueCore.ServiceHosting
@@ -46,7 +46,7 @@ namespace TaskQueueCore.ServiceHosting
 
             //Добавление служб
             services.AddSingleton<TestTaskWriteToFile>();
-            services.AddSingleton<ITaskQueue, TaskQueueService>();
+            services.AddSingleton<ITaskQueue, TaskQueueHangfireService>();
 
 
         }

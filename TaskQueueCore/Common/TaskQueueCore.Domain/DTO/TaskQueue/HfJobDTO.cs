@@ -22,7 +22,7 @@ namespace TaskQueueCore.Domain.DTO.TaskQueue
         /// <summary>
         /// Перечень аргументов
         /// </summary>
-        public object[] Arguments { get; set; }
+        public object[] Arguments { get; set; } = new object[0];
 
         /// <summary>
         /// Результат выполнения

@@ -31,35 +31,35 @@ namespace TaskQueueCore.Interfaces
         /// <summary>
         /// Получить перечень задач по коду задачи
         /// </summary>
-        /// <param name="hfJobFilterDTO">
+        /// <param name="HfJobFilterDTO">
         /// Список кодов задач для заппуска, поле в фильтре HfJobFilterDTO: 
         /// IEnumerable<int> CodeTasks</param>
         /// <returns></returns>
-        IEnumerable<HfJobDTO> GetJobsByCodeTasks(HfJobFilterDTO hfJobFilterDTO);
+        IEnumerable<HfJobDTO> GetJobsByCodeTasks(HfJobFilterDTO HfJobFilterDTO);
 
         /// <summary>
         /// Получить перечень задач по зданому диапазону номеров задач
         /// </summary>
-        /// <param name="hfJobFilterDTO">
+        /// <param name="HfJobFilterDTO">
         /// Начальный Id задач в базе данных HangFire (по умолчанию 0), поле в фильтре HfJobFilterDTO:
         /// int StartNumJobSearch; 
         /// Конечный Id задач в базе данных HangFire (по умолчанию int.Max), поле в фильтре HfJobFilterDTO:
         /// int EndNumJobSearch;
         /// </param>
         /// <returns></returns>
-        IEnumerable<HfJobDTO> GetJobsByPeriodJobIds(HfJobFilterDTO hfJobFilterDTO);
+        IEnumerable<HfJobDTO> GetJobsByPeriodJobIds(HfJobFilterDTO HfJobFilterDTO);
 
         /// <summary>
         ///  Получить перечень задач по зданому диапазону дат
         /// </summary>
-        /// <param name="hfJobFilterDTO">
+        /// <param name="HfJobFilterDTO">
         /// Дата начала периода выполнения задачи, поле в фильтре HfJobFilterDTO:
         /// DateTime StartDateTimeJobSearch; 
         /// Дата окончания периода выполнения задачи, поле в фильтре HfJobFilterDTO:
         /// DateTime EndDateTimeJobSearch;
         /// </param>
         /// <returns></returns>
-        IEnumerable<HfJobDTO> GetJobsByDates(HfJobFilterDTO hfJobFilterDTO);
+        IEnumerable<HfJobDTO> GetJobsByDates(HfJobFilterDTO HfJobFilterDTO);
 
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace TaskQueueCore.Interfaces
         /// </summary>
         /// <param name="CodeTask">Код задачи</param>
         /// <param name="AimDate">Дата, на которую необходимо выполнить задачу</param>
-        /// <param name="objId">Перечень объектов для которых необходимо выполнить задачу</param>
+        /// <param name="ObjId">Перечень объектов для которых необходимо выполнить задачу</param>
         /// <returns>Возвращает Id задачи в базе данных HandFire</returns>
-        string AddJobToEnqueue(int CodeTask, DateTime AimDate, IEnumerable<int> objId);
+        string AddJobToEnqueue(int CodeTask, DateTime AimDate, IEnumerable<int> ObjId);
 
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace TaskQueueCore.Interfaces
         /// <param name="CronExpression">расписание в формате Cron</param>
         /// <param name="CodeTask">Код задачи</param>
         /// <param name="JobId">JobId задачи в базе данных HangFire</param>
-        /// <param name="queue">название очереди</param>
+        /// <param name="Queue">название очереди</param>
         /// <returns></returns>
-        string AddOrUpdateJob(string CronExpression, int CodeTask, string JobId = "", string queue = "default");
+        string AddOrUpdateJob(string CronExpression, int CodeTask, string JobId = "", string Queue = "default");
 
 
         /// <summary>
