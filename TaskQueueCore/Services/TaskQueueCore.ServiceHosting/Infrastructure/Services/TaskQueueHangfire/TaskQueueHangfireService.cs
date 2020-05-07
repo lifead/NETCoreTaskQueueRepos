@@ -8,7 +8,7 @@ using TaskQueueCore.Domain.DTO.TaskQueue;
 using TaskQueueCore.Interfaces;
 using TaskQueueCore.Services.Loader;
 
-namespace TaskQueueCore.ServiceHosting.TaskQueue
+namespace TaskQueueCore.ServiceHosting.Infrastructure.Services.TaskQueueHangfire
 {
     public class TaskQueueHangfireService : ITaskQueue
     {
@@ -73,12 +73,12 @@ namespace TaskQueueCore.ServiceHosting.TaskQueue
         //} 
         #endregion
 
-        public string AddJobToEnqueue(int CodeTask, DateTime AimDate, IEnumerable<int> ObjId)
+        public string AddJobToEnqueue(EnqueueDTO enqueueDTO)
         {
             try
             {
                 var jobId = BackgroundJob.Enqueue(
-                     () => LoaderService.GetMethodCall(CodeTask, AimDate, ObjId));
+                     () => LoaderService.GetMethodCall(enqueueDTO.CodeTask, enqueueDTO.AimDate, enqueueDTO.ObjId));
                 return jobId;
             }
             catch (Exception)
@@ -89,13 +89,13 @@ namespace TaskQueueCore.ServiceHosting.TaskQueue
             }
         }
 
-        public string AddOrUpdateJob(string CronExpression, int CodeTask, string JobId = "", string Queue = "default")
+        public string AddOrUpdateJob(RecurringDTO recurringDTO)
         {
-            RecurringJob.AddOrUpdate(JobId,
-                    () => LoaderService.GetMethodCall(CodeTask, DateTime.Now, null),
-                    CronExpression,
+            RecurringJob.AddOrUpdate(recurringDTO.JobId,
+                    () => LoaderService.GetMethodCall(recurringDTO.CodeTask, DateTime.Now, null),
+                    recurringDTO.CronExpression,
                     null,
-                    Queue);
+                    recurringDTO.Queue);
 
             throw new NotImplementedException();
         }
@@ -112,8 +112,8 @@ namespace TaskQueueCore.ServiceHosting.TaskQueue
                 var succeededJobs = JobStorage
                 .Current
                 .GetMonitoringApi()?
-                .ScheduledJobs(0, int.MaxValue)?
-                //.SucceededJobs(0, int.MaxValue)?
+                //.ScheduledJobs(0, int.MaxValue)?
+                .SucceededJobs(0, int.MaxValue)?
                 .Select(x => new HfJobDTO
                 {
                     JobId = x.Key,
@@ -126,7 +126,7 @@ namespace TaskQueueCore.ServiceHosting.TaskQueue
                 if (succeededJobs.Count() > 0)
                     return succeededJobs;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
                 throw;
@@ -156,7 +156,7 @@ namespace TaskQueueCore.ServiceHosting.TaskQueue
                 if (succeededJobs != null)
                     return succeededJobs;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
                 throw;
@@ -186,7 +186,7 @@ namespace TaskQueueCore.ServiceHosting.TaskQueue
                 if (succeededJobs.Count() > 0)
                     return succeededJobs;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
                 throw;

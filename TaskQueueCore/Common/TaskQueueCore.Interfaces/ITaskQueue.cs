@@ -69,7 +69,7 @@ namespace TaskQueueCore.Interfaces
         /// <param name="AimDate">Дата, на которую необходимо выполнить задачу</param>
         /// <param name="ObjId">Перечень объектов для которых необходимо выполнить задачу</param>
         /// <returns>Возвращает Id задачи в базе данных HandFire</returns>
-        string AddJobToEnqueue(int CodeTask, DateTime AimDate, IEnumerable<int> ObjId);
+        string AddJobToEnqueue(EnqueueDTO EnqueueDTO);
 
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace TaskQueueCore.Interfaces
         /// <param name="JobId">JobId задачи в базе данных HangFire</param>
         /// <param name="Queue">название очереди</param>
         /// <returns></returns>
-        string AddOrUpdateJob(string CronExpression, int CodeTask, string JobId = "", string Queue = "default");
+        string AddOrUpdateJob(RecurringDTO RecurringDTO);
 
 
         /// <summary>

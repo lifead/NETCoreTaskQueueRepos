@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using TaskQueueCore.Domain.DTO.TaskQueue;
 
 namespace TaskQueueCore.Services.Loader
 {

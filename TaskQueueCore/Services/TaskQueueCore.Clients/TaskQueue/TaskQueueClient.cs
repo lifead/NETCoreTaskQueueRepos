@@ -14,24 +14,24 @@ namespace TaskQueueCore.Clients.TaskQueue
         public TaskQueueClient(IConfiguration Configuration) : base(Configuration, WebAPI.TaskQueue) { }
 
 
-        public string AddJobToEnqueue(int CodeTask, DateTime AimDate, IEnumerable<int> objId)
+        public string AddJobToEnqueue(EnqueueDTO enqueueDTO)
         {
             throw new NotImplementedException();
         }
 
-        public string AddOrUpdateJob(string CronExpression, int CodeTask, string JobId = "", string queue = "default")
+        public string AddOrUpdateJob(RecurringDTO recurringDTO)
         {
             throw new NotImplementedException();
         }
 
         public Dictionary<int, string> GetAllCodeTasks()
         {
-            throw new NotImplementedException();
+            return Get<Dictionary<int, string>>($"{_ServiceAddress}");
         }
 
         public IEnumerable<HfJobDTO> GetAllJob()
         {
-            throw new NotImplementedException();
+            return Get<List<HfJobDTO>>($"{_ServiceAddress}/{nameof(GetAllJob)}");
         }
 
         public HfJobDTO GetJobByJobId(int Id)

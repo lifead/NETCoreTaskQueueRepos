@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TaskQueueCore.Clients.TaskQueue;
+using TaskQueueCore.Interfaces;
 
 namespace TaskQueueCore
 {
@@ -18,7 +20,9 @@ namespace TaskQueueCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            services.AddScoped<ITaskQueue, TaskQueueClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

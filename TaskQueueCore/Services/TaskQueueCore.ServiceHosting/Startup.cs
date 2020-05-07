@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using TaskQueueCore.Interfaces;
-using TaskQueueCore.ServiceHosting.TaskQueue;
+using TaskQueueCore.ServiceHosting.Infrastructure.Services.TaskQueueHangfire;
 using TaskQueueCore.Services.TestTask;
 
 namespace TaskQueueCore.ServiceHosting
