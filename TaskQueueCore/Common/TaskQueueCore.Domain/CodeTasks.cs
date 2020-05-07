@@ -12,13 +12,6 @@ namespace TaskQueueCore.Domain
 
         public string Description;
 
-        public static Dictionary<int, string> GetCodeTasks()
-        {
-            Dictionary<int, string> dic = new Dictionary<int, string>();
-
-            dic.Add(0, "Тестовая задача");
-
-            return dic;
-        }
+       
     }
 }

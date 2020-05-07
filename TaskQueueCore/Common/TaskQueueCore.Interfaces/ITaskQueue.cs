@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TaskQueueCore.Domain;
 using TaskQueueCore.Domain.DTO.TaskQueue;
 
 namespace TaskQueueCore.Interfaces
@@ -13,7 +14,7 @@ namespace TaskQueueCore.Interfaces
         /// int - код задачи которую надо запустить;
         /// string - краткое описание задачи
         /// </returns>
-        Dictionary<int, string> GetAllCodeTasks();
+        IEnumerable<CodeTasks> GetAllCodeTasks();
 
         /// <summary>
         /// Получить все задачи запущенные в HangFire

@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using TaskQueueCore.Interfaces;
-using TaskQueueCore.ServiceHosting.Infrastructure.Services.TaskQueueHangfire;
+using TaskQueueCore.ServiceHosting.Services.TaskQueue;
 using TaskQueueCore.Services.TestTask;
 
 namespace TaskQueueCore.ServiceHosting
@@ -26,6 +26,7 @@ namespace TaskQueueCore.ServiceHosting
         {
             services.AddControllers();
 
+            #region Add Hangfire
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
@@ -42,11 +43,12 @@ namespace TaskQueueCore.ServiceHosting
                 }));
 
             // Add the processing server as IHostedService
-            services.AddHangfireServer();
+            services.AddHangfireServer(); 
+            #endregion
 
             //Добавление служб
             services.AddSingleton<TestTaskWriteToFile>();
-            services.AddSingleton<ITaskQueue, TaskQueueHangfireService>();
+            services.AddSingleton<ITaskQueue, TaskQueueService>();
 
 
         }

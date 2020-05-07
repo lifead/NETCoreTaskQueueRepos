@@ -6,11 +6,10 @@ using System.Text;
 using TaskQueueCore.Domain;
 using TaskQueueCore.Domain.DTO.TaskQueue;
 using TaskQueueCore.Interfaces;
-using TaskQueueCore.Services.Loader;
 
-namespace TaskQueueCore.ServiceHosting.Infrastructure.Services.TaskQueueHangfire
+namespace TaskQueueCore.ServiceHosting.Services.TaskQueue
 {
-    public class TaskQueueHangfireService : ITaskQueue
+    public class TaskQueueService : ITaskQueue
     {
         #region пример работы с Hangfire
         //private readonly TestTaskWriteToFile testTaskWriteToFile;
@@ -77,11 +76,15 @@ namespace TaskQueueCore.ServiceHosting.Infrastructure.Services.TaskQueueHangfire
         {
             try
             {
-                var jobId = BackgroundJob.Enqueue(
-                     () => LoaderService.GetMethodCall(enqueueDTO.CodeTask, enqueueDTO.AimDate, enqueueDTO.ObjId));
-                return jobId;
+                //var method = LoaderService.GetMethodCall(0, enqueueDTO.AimDate, enqueueDTO.ObjId);
+                //method(DateTime.Now, new int[] { 6, 3 });
+
+                //var jobId = BackgroundJob.Enqueue<LoaderService>(x => method(DateTime.Now, new int[] { 7, 9 }));
+                ////var jobId = BackgroundJob.Enqueue(() => System.Diagnostics.Debug.WriteLine(55155));
+                //return jobId;
+                throw new NotImplementedException();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return "error";
 
@@ -91,18 +94,18 @@ namespace TaskQueueCore.ServiceHosting.Infrastructure.Services.TaskQueueHangfire
 
         public string AddOrUpdateJob(RecurringDTO recurringDTO)
         {
-            RecurringJob.AddOrUpdate(recurringDTO.JobId,
-                    () => LoaderService.GetMethodCall(recurringDTO.CodeTask, DateTime.Now, null),
-                    recurringDTO.CronExpression,
-                    null,
-                    recurringDTO.Queue);
+            //RecurringJob.AddOrUpdate(recurringDTO.JobId,
+            //        () => LoaderService.GetMethodCall(recurringDTO.CodeTask, DateTime.Now, null),
+            //        recurringDTO.CronExpression,
+            //        null,
+            //        recurringDTO.Queue);
 
             throw new NotImplementedException();
         }
 
-        public Dictionary<int, string> GetAllCodeTasks()
+        public IEnumerable<CodeTasks> GetAllCodeTasks()
         {
-            return CodeTasks.GetCodeTasks();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<HfJobDTO> GetAllJob()

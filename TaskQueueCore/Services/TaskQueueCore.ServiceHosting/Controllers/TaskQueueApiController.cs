@@ -34,7 +34,7 @@ namespace TaskQueueCore.ServiceHosting.Controllers
         }
 
         [HttpGet]
-        public Dictionary<int, string> GetAllCodeTasks()
+        public IEnumerable<CodeTasks> GetAllCodeTasks()
         {
             return _TaskQueue.GetAllCodeTasks();
         }

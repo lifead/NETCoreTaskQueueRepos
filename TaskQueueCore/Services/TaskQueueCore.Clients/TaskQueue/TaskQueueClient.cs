@@ -24,9 +24,9 @@ namespace TaskQueueCore.Clients.TaskQueue
             throw new NotImplementedException();
         }
 
-        public Dictionary<int, string> GetAllCodeTasks()
+        public IEnumerable<CodeTasks> GetAllCodeTasks()
         {
-            return Get<Dictionary<int, string>>($"{_ServiceAddress}");
+            return Get<List<CodeTasks>>($"{_ServiceAddress}");
         }
 
         public IEnumerable<HfJobDTO> GetAllJob()
