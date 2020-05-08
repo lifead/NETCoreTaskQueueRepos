@@ -4,14 +4,17 @@ using System.Text;
 
 namespace TaskQueueCore.Domain
 {
-    public struct CodeTasks
+    public class CodeTasks
     {
-        public int CodeTask;
+        public int CodeTask { get; set; }
 
-        public string ShortName;
+        public string ShortName { get; set; }
 
-        public string Description;
+        public string Description { get; set; }
 
-       
+        public static List<CodeTasks> GetAllCodeTasks => new List<CodeTasks>
+        {
+            new CodeTasks{ CodeTask =  0 , ShortName = "Test", Description = "Тестовая задача"}
+        };
     }
 }

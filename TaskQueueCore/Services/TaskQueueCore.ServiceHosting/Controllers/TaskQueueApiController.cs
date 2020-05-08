@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TaskQueueCore.Domain;
 using TaskQueueCore.Domain.DTO.TaskQueue;
 using TaskQueueCore.Interfaces;
@@ -21,16 +22,24 @@ namespace TaskQueueCore.ServiceHosting.Controllers
             _TaskQueue = TaskQueue;
         }
 
-        [HttpPost(nameof(AddJobToEnqueue))]
-        public string AddJobToEnqueue(EnqueueDTO enqueueDTO)
+        [HttpPost(nameof(AddEnqueueJobAsync))]
+        public async Task<string> AddEnqueueJobAsync(EnqueueDTO EnqueueDTO)
         {
-            return _TaskQueue.AddJobToEnqueue(enqueueDTO);
+            return await _TaskQueue.AddEnqueueJobAsync(EnqueueDTO);
         }
 
-        [HttpPost(nameof(AddOrUpdateJob))]
-        public string AddOrUpdateJob(RecurringDTO recurringDTO)
+
+        [HttpPost(nameof(AddRecurringJobAsync))]
+        public async Task<string> AddRecurringJobAsync(RecurringDTO RecurringDTO)
         {
-            return _TaskQueue.AddOrUpdateJob(recurringDTO);
+            return await _TaskQueue.AddRecurringJobAsync(RecurringDTO);
+        }
+
+
+        [HttpPost("RemoveJob/{JobId}")]
+        public async Task<bool> RemoveJobAsync(string JobId)
+        {
+            return await _TaskQueue.RemoveJobAsync(JobId);
         }
 
         [HttpGet]
@@ -49,30 +58,6 @@ namespace TaskQueueCore.ServiceHosting.Controllers
         public HfJobDTO GetJobByJobId(int Id)
         {
             return _TaskQueue.GetJobByJobId(Id);
-        }
-
-        [HttpPost(nameof(GetJobsByCodeTasks))]
-        public IEnumerable<HfJobDTO> GetJobsByCodeTasks(HfJobFilterDTO hfJobFilterDTO)
-        {
-            return _TaskQueue.GetJobsByCodeTasks(hfJobFilterDTO);
-        }
-
-        [HttpPost(nameof(GetJobsByDates))]
-        public IEnumerable<HfJobDTO> GetJobsByDates(HfJobFilterDTO hfJobFilterDTO)
-        {
-            return _TaskQueue.GetJobsByDates(hfJobFilterDTO);
-        }
-
-        [HttpPost(nameof(GetJobsByPeriodJobIds))]
-        public IEnumerable<HfJobDTO> GetJobsByPeriodJobIds(HfJobFilterDTO hfJobFilterDTO)
-        {
-            return _TaskQueue.GetJobsByPeriodJobIds(hfJobFilterDTO);
-        }
-
-        [HttpPost("RemoveJob/{JobId}")]
-        public bool RemoveJob(string JobId)
-        {
-            return _TaskQueue.RemoveJob(JobId);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TaskQueueCore.Clients.Base;
 using TaskQueueCore.Domain;
 using TaskQueueCore.Domain.DTO.TaskQueue;
@@ -13,15 +14,16 @@ namespace TaskQueueCore.Clients.TaskQueue
     {
         public TaskQueueClient(IConfiguration Configuration) : base(Configuration, WebAPI.TaskQueue) { }
 
-
-        public string AddJobToEnqueue(EnqueueDTO enqueueDTO)
+        public async Task<string> AddEnqueueJobAsync(EnqueueDTO EnqueueDTO)
         {
-            throw new NotImplementedException();
+            var response = await PostAsync($"{_ServiceAddress}/{nameof(AddEnqueueJobAsync)}", EnqueueDTO);
+            return await response.Content.ReadAsStringAsync();
         }
 
-        public string AddOrUpdateJob(RecurringDTO recurringDTO)
+        public async Task<string> AddRecurringJobAsync(RecurringDTO RecurringDTO)
         {
-            throw new NotImplementedException();
+            var response = await PostAsync($"{_ServiceAddress}/{nameof(AddEnqueueJobAsync)}", RecurringDTO);
+            return await response.Content.ReadAsStringAsync();
         }
 
         public IEnumerable<CodeTasks> GetAllCodeTasks()
@@ -39,22 +41,7 @@ namespace TaskQueueCore.Clients.TaskQueue
             throw new NotImplementedException();
         }
 
-        public IEnumerable<HfJobDTO> GetJobsByCodeTasks(HfJobFilterDTO hfJobFilterDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<HfJobDTO> GetJobsByDates(HfJobFilterDTO hfJobFilterDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<HfJobDTO> GetJobsByPeriodJobIds(HfJobFilterDTO hfJobFilterDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveJob(string JobId)
+        public Task<bool> RemoveJobAsync(string JobId)
         {
             throw new NotImplementedException();
         }

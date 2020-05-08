@@ -33,18 +33,5 @@ namespace TaskQueueCore.ServiceHosting.Controllers
                 return ex.Message;
             }
         }
-
-        [HttpGet("AddEnqueue")]
-        public string AddEnqueue()
-        {
-            string jobId = _TaskQueue.AddJobToEnqueue(new EnqueueDTO
-            {
-                CodeTask = 0,
-                AimDate = DateTime.Now,
-                ObjId = new int[] { 5, 7, 9 }
-            });
-            return jobId;
-        }
-
     }
 }
