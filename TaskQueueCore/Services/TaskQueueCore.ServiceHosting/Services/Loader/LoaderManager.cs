@@ -28,7 +28,7 @@ namespace TaskQueueCore.ServiceHosting.Services.Loader
             switch (enqueueDTO.CodeTask)
             {
                 case 0:
-                    jobId = BackgroundJob.Enqueue<LoaderManager>(x => RunTestJob(enqueueDTO.AimDate, enqueueDTO.ObjId));
+                    jobId = BackgroundJob.Enqueue<LoaderManager>(x => RunTestJob(enqueueDTO.AimDate, enqueueDTO.ObjId, false));
                     break;
                 default:
                     jobId = "-1";
@@ -46,8 +46,9 @@ namespace TaskQueueCore.ServiceHosting.Services.Loader
         /// <param name="recurringDTO"></param>
         public void AddRecurring(RecurringDTO recurringDTO)
         {
-            RecurringJob.AddOrUpdate<LoaderManager>(recurringDTO.JobId,
-                    x => RunTestJob(DateTime.Now, new int[] { 11, 12 }),
+            RecurringJob.AddOrUpdate<LoaderManager>(
+                    recurringDTO.JobId,
+                    x => RunTestJob(DateTime.Now, new int[] { 11, 12 }, true),
                     recurringDTO.CronExpression,
                     null,
                     recurringDTO.Queue);
@@ -60,8 +61,14 @@ namespace TaskQueueCore.ServiceHosting.Services.Loader
         /// </summary>
         /// <param name="AimDate">Дата, на которую необходимо выполнить задачу</param>
         /// <param name="ObjId">список объектов для которых необходимо выполнить задачу</param>
-        public static void RunTestJob(DateTime AimDate, IEnumerable<int> ObjIds)
+        public static void RunTestJob(DateTime AimDate, IEnumerable<int> ObjIds, bool isRecurring = false)
         {
+            if (ObjIds == null)
+                ObjIds = new int[] { 1, 2 };
+            
+            if (isRecurring)
+                AimDate = DateTime.Now;
+
             Debug.WriteLine($"Тестовая задача: AimDate: {AimDate}\t ObjId: {string.Join(", ", ObjIds)}");
         } 
         #endregion

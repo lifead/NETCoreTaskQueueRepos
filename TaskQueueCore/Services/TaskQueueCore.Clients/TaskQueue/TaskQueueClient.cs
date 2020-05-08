@@ -22,7 +22,7 @@ namespace TaskQueueCore.Clients.TaskQueue
 
         public async Task<string> AddRecurringJobAsync(RecurringDTO RecurringDTO)
         {
-            var response = await PostAsync($"{_ServiceAddress}/{nameof(AddEnqueueJobAsync)}", RecurringDTO);
+            var response = await PostAsync($"{_ServiceAddress}/{nameof(AddRecurringJobAsync)}", RecurringDTO);
             return await response.Content.ReadAsStringAsync();
         }
 
