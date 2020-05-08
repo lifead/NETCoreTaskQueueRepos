@@ -1,0 +1,7 @@
+﻿.dropdown a[data-toggle="dropdown"].mm-dd-link,
+.dropdown a[data-toggle="dropdown"].mm-dd-link:active {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+

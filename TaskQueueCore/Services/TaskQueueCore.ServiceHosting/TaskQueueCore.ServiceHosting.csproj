@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\TaskQueueCore.Domain\TaskQueueCore.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\TaskQueueCore.Interfaces\TaskQueueCore.Interfaces.csproj" />
+    <ProjectReference Include="..\TaskQueueCore.Services\TaskQueueCore.Services.csproj" />
   </ItemGroup>
 
 

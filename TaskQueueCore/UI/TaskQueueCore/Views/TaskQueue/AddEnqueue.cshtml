@@ -1,0 +1,40 @@
+﻿@model TaskQueueCore.Domain.DTO.TaskQueue.EnqueueDTO
+
+@{
+    ViewData["Title"] = "AddEnqueue";
+}
+
+<h1>AddEnqueue</h1>
+
+<h4>EnqueueDTO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddEnqueue">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CodeTask" class="control-label"></label>
+                <input asp-for="CodeTask" class="form-control" />
+                <span asp-validation-for="CodeTask" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AimDate" class="control-label"></label>
+                <input asp-for="AimDate" class="form-control" />
+                <span asp-validation-for="AimDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ObjId" class="control-label"></label>
+                <input asp-for="ObjId" class="form-control" />
+                <span asp-validation-for="ObjId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

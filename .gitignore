@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/TaskQueueCore/Services/TaskQueueCore.ServiceHosting/my.txt

@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
+using TaskQueueCore.Interfaces;
+using TaskQueueCore.ServiceHosting.Services.TaskQueue;
+using TaskQueueCore.Services.TestTask;
 
 namespace TaskQueueCore.ServiceHosting
 {
@@ -28,6 +26,7 @@ namespace TaskQueueCore.ServiceHosting
         {
             services.AddControllers();
 
+            #region Add Hangfire
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
@@ -44,7 +43,14 @@ namespace TaskQueueCore.ServiceHosting
                 }));
 
             // Add the processing server as IHostedService
-            services.AddHangfireServer();
+            services.AddHangfireServer(); 
+            #endregion
+
+            //Добавление служб
+            services.AddSingleton<TestTaskWriteToFile>();
+            services.AddSingleton<ITaskQueue, TaskQueueService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

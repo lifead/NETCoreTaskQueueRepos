@@ -1,5 +1,3 @@
-using System;
-
 namespace TaskQueueCore.Models
 {
     public class ErrorViewModel
